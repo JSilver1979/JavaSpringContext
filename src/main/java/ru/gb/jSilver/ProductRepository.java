@@ -1,5 +1,6 @@
 package ru.gb.jSilver;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -7,8 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component(value="trueRepo")
-public class InMemoryRepository implements Repository{
+@Component
+@Primary
+public class ProductRepository implements Repository{
 
     private List<Product> productList;
 
@@ -24,15 +26,14 @@ public class InMemoryRepository implements Repository{
                 new Product(7,"Potato",10.9)
         ));
     }
-
     @Override
     public Product findByID(int id) {
-        throw new RuntimeException("InMemoryRepository not for use in homework 2");
+        return productList.stream().filter(product -> product.getId().equals(id)).findFirst().orElseThrow();
     }
+
 
     @Override
     public List<Product> getAllProducts() {
-        throw new RuntimeException("InMemoryRepository not for use in homework 2");
+        return productList;
     }
-
 }
