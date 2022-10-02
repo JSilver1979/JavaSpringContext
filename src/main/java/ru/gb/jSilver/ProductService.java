@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -18,6 +20,16 @@ public class ProductService {
 
     public String getTitleById(Integer id) {
         return repository.findByID(id).getTitle();
+    }
+
+    public Product getProductById(Integer id) {
+        return repository.findByID(id);
+    }
+
+    public void getProductList() {
+        for (Product product : repository.getAllProducts()) {
+            System.out.println(product.toString());
+        }
     }
 
     public void write() throws IOException {
